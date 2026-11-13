@@ -1,0 +1,30 @@
+.footer-wordmark:hover {
+  color: transparent;
+}
+
+.footer-wordmark .footer-letter {
+  display: inline-block;
+  color: transparent;
+  -webkit-text-stroke: 1px #f0efe92d;
+  cursor: default;
+  transition: color .18s ease, -webkit-text-stroke-color .18s ease, transform .22s cubic-bezier(.2, .8, .25, 1), text-shadow .22s ease;
+}
+
+@media (hover: hover) {
+  .footer-wordmark .footer-letter:hover {
+    color: #c9ff2f;
+    -webkit-text-stroke-color: #c9ff2f;
+    transform: translateY(-.12em) rotate(-3deg) scale(1.04);
+    text-shadow: 0 .08em .28em #c9ff2f52;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-wordmark .footer-letter {
+    transition: color .15s ease, -webkit-text-stroke-color .15s ease;
+  }
+
+  .footer-wordmark .footer-letter:hover {
+    transform: none;
+  }
+}
