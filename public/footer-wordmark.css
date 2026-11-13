@@ -12,10 +12,10 @@
 
 @media (hover: hover) {
   .footer-wordmark .footer-letter:hover {
-    color: #c9ff2f;
-    -webkit-text-stroke-color: #c9ff2f;
+    color: var(--red);
+    -webkit-text-stroke-color: var(--red);
     transform: translateY(-.12em) rotate(-3deg) scale(1.04);
-    text-shadow: 0 .08em .28em #c9ff2f52;
+    text-shadow: 0 .08em .28em #ff3b4652;
   }
 }
 

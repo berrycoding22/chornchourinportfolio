@@ -1,0 +1,41 @@
+.portrait-wrap .portrait::before {
+  background: linear-gradient(0deg, rgba(5, 9, 14, .62), transparent 56%);
+}
+
+.portrait-wrap .profile-photo {
+  filter: none;
+  transform: scale(1.02);
+  transition: opacity .55s ease, transform .8s ease;
+}
+
+.portrait-wrap .profile-hover-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity .55s ease, transform .8s ease;
+}
+
+@media (hover: hover) {
+  .portrait-wrap:hover .profile-photo {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+
+  .portrait-wrap:hover .profile-hover-photo {
+    opacity: 1;
+    transform: scale(1.01);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait-wrap .profile-photo,
+  .portrait-wrap .profile-hover-photo {
+    transition: none;
+  }
+}
