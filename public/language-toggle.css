@@ -1,0 +1,60 @@
+.language-toggle {
+  min-width: 64px;
+  height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font: 600 12px var(--mono);
+  letter-spacing: .8px;
+  cursor: pointer;
+  transition: border-color .25s, color .25s, background .25s;
+}
+
+.language-toggle:hover,
+.language-toggle:focus-visible {
+  border-color: var(--red);
+  color: var(--red);
+  outline: none;
+}
+
+body.khmer-language {
+  --sans: 'Noto Sans Khmer', 'Noto Sans', Arial, sans-serif;
+  --mono: 'Noto Sans Khmer', 'Noto Sans', Arial, sans-serif;
+  --serif: 'Noto Sans Khmer', 'Noto Sans', Arial, sans-serif;
+}
+
+body.khmer-language .navlinks a,
+body.khmer-language .talk,
+body.khmer-language .intro,
+body.khmer-language .eyebrow,
+body.khmer-language .section-label,
+body.khmer-language .role,
+body.khmer-language .hero-copy,
+body.khmer-language .about-copy,
+body.khmer-language .work-intro,
+body.khmer-language .rail-card,
+body.khmer-language .skills-head,
+body.khmer-language .skill-card,
+body.khmer-language .experience,
+body.khmer-language .service-row,
+body.khmer-language .contact-new,
+body.khmer-language .footer-main,
+body.khmer-language .footer-bottom {
+  letter-spacing: normal;
+}
+
+body.khmer-language .script {
+  font-family: var(--sans);
+  font-style: normal;
+}
+
+@media (max-width: 760px) {
+  .language-toggle {
+    min-width: 56px;
+    height: 36px;
+    padding: 0 10px;
+    font-size: 11px;
+  }
+}
