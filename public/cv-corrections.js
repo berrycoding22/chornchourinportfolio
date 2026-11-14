@@ -85,6 +85,22 @@
     const pills = card.querySelector('.pills');
     if (pills) pills.innerHTML = item.skills.map(skill => `<span>${skill}</span>`).join('');
   });
+  const behanceUrl = 'https://www.behance.net/chornchourin';
+  const designCard = document.querySelectorAll('.rail-card')[2];
+  if (designCard) {
+    const designLink = designCard.querySelector('.rail-visual');
+    if (designLink) {
+      designLink.href = behanceUrl;
+      designLink.target = '_blank';
+      designLink.rel = 'noopener noreferrer';
+      designLink.removeAttribute('data-project');
+      designLink.setAttribute('aria-label', 'View Chorn Chourin design work on Behance');
+      const visit = designLink.querySelector('.visit');
+      if (visit) visit.innerHTML = 'VIEW<br>BEHANCE';
+      designLink.addEventListener('click', event => event.stopImmediatePropagation(), true);
+    }
+  }
+
   const socialCard = document.querySelectorAll('.rail-card')[4];
   if (socialCard) {
     const visual = socialCard.querySelector('.rail-visual');
@@ -175,6 +191,15 @@
   if (staticTicker) {
     staticTicker.innerHTML = ['Facebook Page', 'Content Planning', 'Page Boosting', 'TikTok Management', 'YouTube Management', 'Social Media Content']
       .map(skill => '<span class="chip">' + skill + '</span>').join('');
+  }
+  const elsewhere = document.querySelector('.footer-elsewhere');
+  if (elsewhere && !elsewhere.querySelector('[href="https://www.behance.net/chornchourin"]')) {
+    const link = document.createElement('a');
+    link.href = behanceUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = 'Behance';
+    elsewhere.insertBefore(link, elsewhere.firstElementChild?.nextElementSibling || null);
   }
   setText('.footer-identity p', 'Providing IT support, teaching computer skills, and creating visual content for education.');
 })();
