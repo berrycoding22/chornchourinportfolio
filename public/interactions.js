@@ -9,7 +9,7 @@ function cursorFrame(){rx+=(mx-rx)*.17;ry+=(my-ry)*.17;ring.style.left=rx-ring.o
 const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');let cw=0,ch=0,time=0,last=0;const count=7200;const rand=n=>{let x=Math.sin(n*127.1+311.7)*43758.5453123;return x-Math.floor(x)};
 function boxPoint(i,w,h,d){let a=rand(i*3+1)*2-1,b=rand(i*3+2)*2-1,face=i%6;return face<2?[(face?1:-1)*w,a*h,b*d]:face<4?[a*w,(face===3?1:-1)*h,b*d]:[a*w,b*h,(face===5?1:-1)*d]}
 function roundedRect(t,w,h,r){const seg=t*8,k=Math.floor(seg),f=seg-k;const x=w-r,y=h-r;switch(k){case 0:return[-x+2*x*f,-h];case 1:{let a=-Math.PI/2+f*Math.PI/2;return[x+r*Math.cos(a),-y+r*Math.sin(a)]}case 2:return[w,-y+2*y*f];case 3:{let a=f*Math.PI/2;return[x+r*Math.cos(a),y+r*Math.sin(a)]}case 4:return[x-2*x*f,h];case 5:{let a=Math.PI/2+f*Math.PI/2;return[-x+r*Math.cos(a),y+r*Math.sin(a)]}case 6:return[-w,y-2*y*f];default:{let a=Math.PI+f*Math.PI/2;return[-x+r*Math.cos(a),-y+r*Math.sin(a)]}}}
-const targets=[[],[],[]];
+const targets=[[],[],[],[]];
 for(let i=0;i<count;i++){
  const u=i/count*Math.PI*2, v=Math.acos(1-2*rand(i+50));let theta=u*43;let lat=v;let radius=1+.035*Math.sin(theta*7+lat*12);if(i%4===0){lat=Math.round(lat/(Math.PI/10))*(Math.PI/10)}else if(i%4===1){theta=Math.round(theta/(Math.PI/7))*(Math.PI/7)}let sphere=[radius*Math.sin(lat)*Math.cos(theta),radius*Math.cos(lat),radius*Math.sin(lat)*Math.sin(theta)];targets[0].push(sphere);
  const layer=Math.floor(i/(count/3));let x,z;const q=i%2400;
@@ -21,10 +21,16 @@ for(let i=0;i<count;i++){
  else if(i%10===6){book=[0,depth*.59,-.26]}
  else {const x=side*(.11+spread*.72);const row=i%7;book=[x,-.39+row*.13-.17*Math.abs(x)+(rand(i+600)-.5)*.008,-.24+Math.abs(x)*.36]}
  targets[2].push(book);
+ // A media canvas with a play mark and scattered editing controls.
+ let media;const mediaPart=i%7200;
+ if(mediaPart<4700){const edge=roundedRect(mediaPart/4700,.92,.56,.11);media=[edge[0],edge[1],-.08]}
+ else if(mediaPart<6200){const t=(mediaPart-4700)/1500;media=[-.26+t*.5,-.25+t*.5,.02]}
+ else {const a=mediaPart*.071,rr=.72+(mediaPart%5)*.055;media=[Math.cos(a)*rr,Math.sin(a)*rr*.58,.06+(mediaPart%3)*.06]}
+ targets[3].push(media);
 }
 const positions=targets[1].map(p=>p.slice());let shape=1,morphFlash=0,mouseX=0,mouseY=0,targetMouseX=0,targetMouseY=0;
 addEventListener('pointermove',e=>{const r=canvas.getBoundingClientRect();targetMouseX=Math.max(-1,Math.min(1,(e.clientX-r.left-r.width/2)/(r.width/2)));targetMouseY=Math.max(-1,Math.min(1,(e.clientY-r.top-r.height/2)/(r.height/2)))});
-const roleShapes=[1,0,2],shapeLabels=['network globe','server layers','open book'];
+const roleShapes=[1,2,3,0,1],shapeLabels=['network globe','server layers','open book','media canvas'];
 function syncRole(index){const nextShape=roleShapes[index]??1;if(nextShape!==shape&&!reduced)morphFlash=1;shape=nextShape;canvas.dataset.roleIndex=String(index);canvas.dataset.shape=shapeLabels[shape];canvas.setAttribute('aria-label',document.querySelectorAll('.role')[index].textContent.trim()+' — '+shapeLabels[shape]);if(reduced||document.body.classList.contains('paused'))positions.forEach((p,i)=>{for(let k=0;k<3;k++)p[k]=targets[shape][i][k]})}
 document.addEventListener('portfolio:role-change',e=>syncRole(e.detail.index));syncRole([...document.querySelectorAll('.role')].findIndex(el=>el.classList.contains('active')));
 const resizeCanvas=()=>{const dpr=Math.min(devicePixelRatio||1,2);cw=canvas.clientWidth;ch=canvas.clientHeight;canvas.width=cw*dpr;canvas.height=ch*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)};new ResizeObserver(resizeCanvas).observe(canvas);

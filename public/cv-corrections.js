@@ -11,7 +11,7 @@
 
   setText('.intro', "HI, I'M CHORN CHOURIN — FROM CAMBODIA");
   const roles = document.querySelectorAll('.role');
-  ['IT Support', 'Computer Teacher', 'Graphic Designer & Video Editor'].forEach((title, index) => {
+  ['IT Support', 'Computer Teacher', 'Graphic Designer & Video Editor', 'Social Media Manager', 'Web Developer'].forEach((title, index) => {
     const role = roles[index];
     if (role) role.lastChild.nodeValue = title;
   });
@@ -97,6 +97,9 @@
       designLink.setAttribute('aria-label', 'View Chorn Chourin design work on Behance');
       const visit = designLink.querySelector('.visit');
       if (visit) visit.innerHTML = 'VIEW<br>BEHANCE';
+      designLink.classList.add('behance-card');
+      const art = designLink.querySelector('.project-art');
+      if (art) art.innerHTML = '<img class="behance-cover" src="images/behance-design-cover.png" alt="Chorn Chourin Behance design portfolio" loading="lazy">';
       designLink.addEventListener('click', event => event.stopImmediatePropagation(), true);
     }
   }
